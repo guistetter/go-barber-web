@@ -16,6 +16,7 @@ module.exports = {
   plugins: ['react', 'prettier', 'react-hooks'],
   rules: {
     'react/state-in-constructor': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': ['warn', { extensions: ['.jsx', '.js'] }],
     'import/prefer-default-export': 'off',
