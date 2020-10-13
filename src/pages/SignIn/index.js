@@ -9,7 +9,7 @@ export default function SignIn() {
       <img src={logo} alt="GoBarber" />
       <form action="">
         <input type="email" placeholder="Seu e-mail" />
-        <input type="passwrod" placeholder="Sua senha secreta" />
+        <input type="password" placeholder="Sua senha secreta" />
         <button type="submit">Acessar</button>
         <Link to="/register"> Criar conta gratuita</Link>
       </form>
