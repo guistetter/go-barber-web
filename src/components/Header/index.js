@@ -1,8 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+
+import Notifications from '../Notifications'
+
 import logo from '../../assets/logo2.svg'
 import {Container, Content, Profile} from './styles'
-
 export default function Header(){
   return(
     <Container>
@@ -12,6 +14,7 @@ export default function Header(){
           <Link to="/dashboard">DASHBOARD</Link>
         </nav>
         <aside>
+          <Notifications/>
           <Profile>
             <div>
               <strong>GUI STETTER</strong>
