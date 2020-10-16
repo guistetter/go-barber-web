@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useEffect, useMemo} from 'react'
 import { MdNotifications} from 'react-icons/md'
 import { parseISO, formatDistance} from 'date-fns'
 import pt from 'date-fns/locale/pt'
@@ -11,11 +11,15 @@ export default function Notifications(){
   const [visible, setVisible] = useState(false)
   const [ notifications, setNotifications] = useState([])
 
+  const hasUnread = useMemo(
+    () => !!notifications.find(notification = notification.read === false)
+    [notifications]
+  )
+
   useEffect(() => {
     async function loadNotifications(){
 
       const response = await api.get('notifications')
-
       const data = response.data.map(notification => ({
         ...notification,
         timeDistance: formatDistance(
@@ -33,22 +37,29 @@ export default function Notifications(){
     setVisible(!visible)
   }
 
-return (
-  <Container>
-    <Badge onClick={handleToggleVisible} hasUnread>
-      <MdNotifications size={20} color="#7159c1"/>
-    </Badge>
-    <NotificationList visible={visible}>
-      <Scroll>
-        {notifications.map(notification =>(
-          <Notification unread>
-          <p>Você possui um novo agendamento para amanhã</p>
-          <time>há 2 dias</time>
-          <button type="button">Marcar como lida</button>
-        </Notification>
-        ))}
-      </Scroll>
-    </NotificationList>
-  </Container>
-)
+  async function handleMarkAsRead(id){
+    await api.put(`notifications/${id}`)
+    setNotifications(
+      notifications.map(notification => notification._id === id ? {...notification, read: true} : notification)
+    )
+  }
+
+  return (
+    <Container>
+      <Badge onClick={handleToggleVisible} hasUnread={hasUnread}>
+        <MdNotifications size={20} color="#7159c1"/>
+      </Badge>
+      <NotificationList visible={visible}>
+        <Scroll>
+          {notifications.map(notification =>(
+            <Notification key={notification._id} unread={!notification.read}>
+            <p>{notification.content}</p>
+            <time>{notification.timeDistance}</time>
+            <button type="button" onClick={() => handleMarkAsRead(notification._id)}>Marcar como lida</button>
+          </Notification>
+          ))}
+        </Scroll>
+      </NotificationList>
+    </Container>
+  )
 }
