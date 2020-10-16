@@ -18,9 +18,7 @@ export const Content = styled.div`
   }
   img{
     margin-right: 20px;
-    padding-right: 20px;
-    border-right: 1px solid #eee;
-
+    border: 1px solid #eee;
   }
   a{
     font-weight: bold;
@@ -55,8 +53,8 @@ export const Profile = styled.div`
 
   }
   img{
-      height: 32px;
-     border-radius: 50%;
+    height: 45px;
+    border-radius: 50%;
     }
 
 `;
