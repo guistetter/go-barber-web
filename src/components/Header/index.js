@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {Link} from 'react-router-dom'
 
 import Notifications from '../Notifications'
@@ -6,6 +7,7 @@ import Notifications from '../Notifications'
 import logo from '../../assets/logo2.svg'
 import {Container, Content, Profile} from './styles'
 export default function Header(){
+  const profile = useSelector(state => state.user.profile)
   return(
     <Container>
       <Content>
@@ -17,10 +19,10 @@ export default function Header(){
           <Notifications/>
           <Profile>
             <div>
-              <strong>GUI STETTER</strong>
+              <strong>{profile.name}</strong>
               <Link to="/profile">Meu Perfil</Link>
               </div>
-              <img src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50" alt="Foto do usuario"/>
+              <img src={profile.avatar.url || 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50'} alt="Foto do usuario"/>
           </Profile>
         </aside>
       </Content>
